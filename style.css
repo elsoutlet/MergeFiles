@@ -7,6 +7,16 @@
     font-size: 0.95em;
 }
 
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 .status-success {
     background: #f0f8f0;
     color: #2d5a2d;
