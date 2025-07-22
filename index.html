@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel File Merger Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Excel File Merger Tool</h1>
+        <div class="file-upload" id="dropZone">
+            <input type="file" id="files" multiple accept=".xlsx,.xls" />
+            <p>Choose Excel files or drag and drop them here</p>
+            <p><small>Supports .xlsx and .xls files</small></p>
+            <div class="file-list" id="fileList"></div>
+        </div>
+        <div class="file-upload">
+            <label for="masterFile"><strong>Optional Master File:</strong></label>
+            <input type="file" id="masterFile" accept=".xls,.xlsx" />
+        </div>
+        <div class="buttons">
+            <button id="mergeBtn" disabled>
+                <span id="mergeSpinner" class="spinner">Loading...</span>
+                Merge and Download Individual Files
+            </button>
+            <button id="masterBtn" disabled>
+                <span id="masterSpinner" class="spinner">Loading...</span>
+                Merge and Download Master File
+            </button>
+        </div>
+        <div id="status" class="status"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="processFiles.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

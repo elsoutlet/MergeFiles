@@ -1,0 +1,127 @@
+.status {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+    font-size: 0.95em;
+}
+
+.status-success {
+    background: #f0f8f0;
+    color: #2d5a2d;
+    border: 1px solid #c3e6c3;
+}
+
+.status-error {
+    background: #fdf2f2;
+    color: #8b2635;
+    border: 1px solid #f5c6cb;
+}
+
+.status-info {
+    background: #fff200;
+    color: #002b5e;
+    border: 1px solid #002b5e;
+}
+
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 242, 0, 0.3);
+    border-top: 2px solid #fff200;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 8px;
+}
+
+.file-upload {
+    border: 2px dashed #002b5e;
+    border-radius: 4px;
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: border-color 0.2s ease;
+    background: #f8f9fa;
+}
+
+.file-upload p {
+    font-size: 1em;
+    color: #002b5e;
+    margin-bottom: 8px;
+}
+
+.file-upload small {
+    color: #666;
+    font-size: 0.9em;
+}
+
+#files {
+    margin-bottom: 16px;
+    padding: 12px;
+    border: 1px solid #002b5e;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1em;
+    width: 80%;
+    background: white;
+}
+
+#files:focus {
+    outline: none;
+    border-color: #fff200;
+}
+
+.file-list {
+    margin-top: 16px;
+    font-size: 0.9em;
+    color: #002b5e;
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+.file-upload {
+    border: 2px dashed #002b5e;
+    border-radius: 4px;
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    transition: border-color 0.2s ease;
+    background: #f8f9fa;
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+button:hover:not(:disabled) {
+    background: #fff200;
+    color: #002b5e;
+}
+
+button:disabled {
+    background: #ccc;
+    color: #666;
+    border-color: #999;
+    cursor: not-allowed;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
