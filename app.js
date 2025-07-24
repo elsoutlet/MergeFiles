@@ -60,6 +60,17 @@ async function downloadMergedFiles() {
             const name = fileName || `merged_file_${downloadCount + 1}`;
             // Convert CSV to workbook
             const wb = XLSX.read(csvContent, { type: 'string' });
+            const ws = wb.Sheets[wb.SheetNames[0]];
+            const upcColIdx = EXPECTED_HEADER.indexOf("UPC");
+            if (upcColIdx !== -1) {
+                for (let r = 1; ; ++r) {
+                    const cellAddress = XLSX.utils.encode_cell({ c: upcColIdx, r });
+                    const cell = ws[cellAddress];
+                    if (!cell) break;
+                    cell.t = 's'; // Force cell type to string
+                    cell.z = '@'; // Set format to text (optional, but helps)
+                }
+            }
             const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
             const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             const url = URL.createObjectURL(blob);

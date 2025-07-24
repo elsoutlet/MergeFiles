@@ -103,7 +103,11 @@ function objectsToArray(objs) {
             const norm = h.toLowerCase().trim();
             // Find the key in obj that matches norm
             const key = Object.keys(obj).find(k => k.toLowerCase().trim() === norm);
-            return key ? obj[key] : "";
+            let val = key ? obj[key] : "";
+            if (h === "UPC" && val !== undefined && val !== null) {
+                val = val.toString();
+            }
+            return val;
         })
     );
     return [EXPECTED_HEADER, ...rows];
@@ -203,6 +207,10 @@ async function merge(files) {
                         // Actual UPC
                         if ('universal id' in mergedRow) {
                             mergedRow['actual upc'] = formatUPC(mergedRow['universal id']);
+                            // Force as string
+                            if (mergedRow['actual upc'] !== undefined && mergedRow['actual upc'] !== null) {
+                                mergedRow['actual upc'] = mergedRow['actual upc'].toString();
+                            }
                         }
                         merged.push(mergedRow);
                     }
@@ -252,6 +260,18 @@ async function combineMergedFiles(files, masterFile = null) {
     }
     const finalArr = [header, ...allRows];
     const ws = XLSX.utils.aoa_to_sheet(finalArr);
+    // Force UPC column to text format
+    const upcColIdx = EXPECTED_HEADER.indexOf("UPC");
+    if (upcColIdx !== -1) {
+        for (let r = 1; r < finalArr.length; ++r) { // skip header row
+            const cellAddress = XLSX.utils.encode_cell({ c: upcColIdx, r });
+            const cell = ws[cellAddress];
+            if (cell) {
+                cell.t = 's';
+                cell.z = '@';
+            }
+        }
+    }
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'MergedData');
     return wb;
