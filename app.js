@@ -56,19 +56,22 @@ async function downloadMergedFiles() {
             return;
         }
         let downloadCount = 0;
-        result.forEach(([csvContent, fileName], index) => {
-            const name = fileName || `merged_file_${index + 1}`;
-            const blob = new Blob([csvContent], { type: 'text/csv' });
+        for (const [csvContent, fileName] of result) {
+            const name = fileName || `merged_file_${downloadCount + 1}`;
+            // Convert CSV to workbook
+            const wb = XLSX.read(csvContent, { type: 'string' });
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `${name}.csv`;
+            a.download = `${name}.xlsx`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             downloadCount++;
-        });
+        }
         setStatus(`Successfully downloaded ${downloadCount} merged files`, 'success');
     } catch (e) {
         console.error(e);
